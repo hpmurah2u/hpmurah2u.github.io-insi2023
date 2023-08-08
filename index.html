@@ -1,0 +1,76 @@
+<html lang="en" style="background-color: black;">
+
+<div class="container">
+    <video controls="" crossorigin="" playsinline="" poster="https://img.goku.to/xxrz/250x400/576/1b/cb/1bcbeb8cf2fd720987289e1e90b541fe/1bcbeb8cf2fd720987289e1e90b541fe.jpg">
+
+        <track kind="subtitles" label="Malay" src="https://raw.githubusercontent.com/hpmurah2u/pejal/PEJAL/insi2023.malay.vtt" srclang="ms"></track>
+        <track kind="subtitles" label="English" src="https://raw.githubusercontent.com/hpmurah2u/pejal/PEJAL/M3gan.vtt" srclang="en"></track>
+    </video>
+</div>
+<script defer="" src="https://cdn.staticaly.com/gh/DungGramer/disable-devtool/cbf447f/disable-devtool.min.js"></script>
+<script defer="" src="https://gitcdn.xyz/repo/DungGramer/disable-devtool/master/disable-devtool.min.js"></script>
+ <script defer="" src="https://dunggramer.github.io/disable-devtool/disable-devtool.min.js"></script>
+    <script src="../../../Javascript/watch.js" type="text/javascript"></script>
+    <script data-cfasync="false" src="../../../Javascript/watch.min.js" type="text/javascript"></script>
+    <script src="../../../Javascript/one.js" type="text/javascript"></script>
+    <script src="../../../Javascript/two.js" type="text/javascript"></script>
+    <script src="../../../Javascript/three.js" type="text/javascript"></script>
+    <script src="../../../Javascript/four.js" type="text/javascript"></script>
+    <script src="../../../Javascript/five.js" type="text/javascript"></script>
+    <script src="../../../Javascript/six.js" type="text/javascript"></script>
+    <script src="../../../Javascript/Seven.js" type="text/javascript"></script>
+<script src="../../../watch.js" type="text/javascript"></script>
+<script data-cfasync="false" src="../../../watch.min.js" type="text/javascript"></script>
+
+<p id="version"></p>
+<p id="info"></p>
+<link href="//cdn.plyr.io/3.4.7/plyr.css" rel="stylesheet"></link>
+<script src="//cdn.plyr.io/3.4.7/plyr.js"></script>
+<script src="//cdn.jsdelivr.net/npm/cdnbye@latest"></script>
+
+<script>
+    document.querySelector('#version').innerText = ``;
+    document.addEventListener('DOMContentLoaded', () => {
+        var source = "https://neves.jeffycontent.com/_v10/96c48296ecf1b685a87599c1cdcd97aa3f9c6b4522d848c01ee665dbe29399cfb64091f05debd3ab0fad4794cd7ffbeb54f94365283e9a4fe4d108fe7912a72d75205a67febb97e4ae3d7e8f50408a69f07bd168e66fc73f6ca8f933f85d300e4a0b9cceb6fef39a94dcca6596deb3c31f1df176307878329ed35eec97e9f67d79c523542422bccddfe0085bd05d46b8/playlist.m3u8"
+        var video = document.querySelector('video');
+
+        // For more options see: https://github.com/sampotts/plyr/#options
+        // captions.update is required for captions to work with hls.js
+        var player = new Plyr(video, {
+            captions: { active: true, update: true, language: 'en' },
+            // autoplay: true,
+        });
+
+        if (!Hls.isSupported()) {
+            video.src = source;
+        } else {
+            // For more Hls.js options, see https://github.com/dailymotion/hls.js
+            var hls = new Hls({
+                p2pConfig: {
+                    live: true,        // set false in vod mode
+                    // announceLocation: 'hk',        // if using Hongkong tracker
+                    // announceLocation: 'us',        // if using USA tracker
+                    getStats: function (totalP2PDownloaded, totalP2PUploaded, totalHTTPDownloaded) {
+                        var total = totalHTTPDownloaded + totalP2PDownloaded;
+                        document.querySelector('#info').innerText = ``;
+                    },
+                    // Other p2pConfig options provided by CDNBye
+                }
+            });
+            hls.loadSource(source);
+            hls.attachMedia(video);
+            window.hls = hls;
+
+            // Handle changing captions
+            player.on('languagechange', () => {
+                // Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
+                setTimeout(() => hls.subtitleTrack = player.currentTrack, 50);
+            });
+        }
+
+        // Expose player so it can be used from the console
+        window.player = player;
+    });
+</script></html>
+
+
